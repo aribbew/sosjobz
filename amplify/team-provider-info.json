@@ -1,0 +1,30 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-sosjobzgo-dev-05652-authRole",
+      "UnauthRoleArn": "arn:aws:iam::301865362289:role/amplify-sosjobzgo-dev-05652-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::301865362289:role/amplify-sosjobzgo-dev-05652-authRole",
+      "Region": "ca-central-1",
+      "DeploymentBucketName": "amplify-sosjobzgo-dev-05652-deployment",
+      "UnauthRoleName": "amplify-sosjobzgo-dev-05652-unauthRole",
+      "StackName": "amplify-sosjobzgo-dev-05652",
+      "StackId": "arn:aws:cloudformation:ca-central-1:301865362289:stack/amplify-sosjobzgo-dev-05652/8dfbdf00-035d-11ee-90ad-0259297615dc",
+      "AmplifyAppId": "d29j7i6kstxgfy",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-sosjobzgo-dev-05652-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "SosjobzGoCognito": {}
+      },
+      "function": {
+        "SosjobzGoCognitoPostConfirmation": {
+          "deploymentBucketName": "amplify-sosjobzgo-dev-05652-deployment",
+          "s3Key": "amplify-builds/SosjobzGoCognitoPostConfirmation-30486a374238772f4963-build.zip"
+        }
+      },
+      "api": {
+        "SosjobzgoApiLambd": {}
+      }
+    }
+  }
+}

@@ -1,10 +1,20 @@
-{
+ {
   "expo": {
     "scheme": "acme",
     "web": {
       "bundler": "metro"
     },
     "name": "sosjobzgo",
-    "slug": "sosjobzgo"
+    "slug": "sosjobzgo",
+    "android": {
+      "package": "com.arbritodev.sosjobzgo"
+    },
+    "eas": {
+      "projectId": "b21cd3e1-7320-45f7-90a6-413e8f534a0d"
+    },
+    "plugins": ["@react-native-google-signin/google-signin"]
+  },
+  "ios": {
+    "bundleIdentifier": "com.arbritodev.sosjobzgo"
   }
 }
