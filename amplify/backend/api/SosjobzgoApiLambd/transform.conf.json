@@ -1,4 +1,22 @@
 {
     "Version": 5,
-    "ElasticsearchWarning": true
+    "ElasticsearchWarning": true,
+    "ResolverConfig": {
+        "project": {
+            "ConflictHandler": "LAMBDA",
+            "ConflictDetection": "VERSION",
+            "LambdaConflictHandler": {
+                "name": "sosjobzCategory-dev"
+            }
+        },
+        "models": {
+            "Category": {
+                "ConflictHandler": "LAMBDA",
+                "ConflictDetection": "VERSION",
+                "LambdaConflictHandler": {
+                    "name": "sosjobzCategory-dev"
+                }
+            }
+        }
+    }
 }

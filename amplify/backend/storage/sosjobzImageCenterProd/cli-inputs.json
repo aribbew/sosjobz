@@ -1,0 +1,12 @@
+{
+  "resourceName": "sosjobzImageCenterProd",
+  "policyUUID": "0fce735a",
+  "bucketName": "sosjobzimagecenterddb",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "READ"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

@@ -15,6 +15,14 @@
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "AWS_IAM"
+            },
+            {
+              "apiKeyConfig": {
+                "apiKeyExpirationDate": "2024-07-05T07:45:20.653Z",
+                "apiKeyExpirationDays": 365,
+                "description": "categoryApiKey"
+              },
+              "authenticationType": "API_KEY"
             }
           ],
           "defaultAuthentication": {
@@ -70,6 +78,21 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "sosjobzCategory": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ],
+          "category": "api",
+          "resourceName": "SosjobzgoApiLambd"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -88,6 +111,45 @@
           "resourceName": "SosjobzGoCognitoPostConfirmation"
         }
       ]
+    },
+    "AMPLIFY_function_sosjobzCategory_categorytable": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sosjobzCategory"
+        }
+      ]
+    },
+    "AMPLIFY_function_sosjobzCategory_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sosjobzCategory"
+        }
+      ]
+    },
+    "AMPLIFY_function_sosjobzCategory_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sosjobzCategory"
+        }
+      ]
+    },
+    "AMPLIFY_function_sosjobzCategory_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "sosjobzCategory"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "sosjobzImageCenterProd": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }

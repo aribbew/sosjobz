@@ -4,25 +4,28 @@ import {
   Text,
   Pressable,
   Platform,
-  ScrollView,
 } from 'react-native';
 import { StatusBar } from 'react-native';
-import React, { useEffect } from 'react';
-import { Button } from '@rneui/base';
+import React, { useState, useEffect } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import { Icon } from '@rneui/themed';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen'
 import { useRouter } from
   "expo-router";
+import ListHomeCat from '../../components/ListCategoryHome'
+import BigListHomeCat from '../../components/BigListCategory'
+import LogoNb from '../../resources/logobb';
+import LoadingDots from '../../components/LoadingDotsAnimation';
 
-function home() {
+const home = () => {
+
+  const [isLoading, setIsLoading] = useState(true);
+
   const { control, handleSubmit, formState: { errors }, } = useForm();
   StatusBar.setBarStyle('dark-content', true);
 
   const router = useRouter();
-
-
 
   //Font loading start this gets all the return
   const [fontsLoaded] = useFonts({
@@ -30,14 +33,24 @@ function home() {
     'Epilogue-Black': require('../../resources/fonts/Epilogue-Black.ttf'),
   });
 
+
   useEffect(() => {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync
+      setIsLoading(false);
     }
     prepare();
   }, []);
 
-  if (!fontsLoaded) {
+  if (!fontsLoaded || isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <LogoNb style={styles.logoSvg} />
+        <View style={styles.loadingDotsContainer}>
+          <LoadingDots />
+        </View>
+      </View>
+    );
 
   } else {
     return (
@@ -58,18 +71,11 @@ function home() {
           <View style={styles.homeContainerIos}>
             <View style={styles.emailInputIos}>
               <Icon name='search' type='feather' style={styles.iconIos} />
-              <View style={styles.containerDirectEmailInputIos}>
-                <Controller
-                  control={control}
-                  name='email'
-                  render={({ field: { value, onChange, onBlur, ref } }) => (
-                    <Button
-                      style={styles.emailInputFieldIos}
-                    // onPressIn={}
-                    />
-                  )}
-                />
-              </View>
+              <Pressable style={styles.containerDirectEmailInput} onPress={() => {
+                router.push("../userresults")
+              }}>
+                <Text style={styles.titleSearchInput}>Where do you need the service?</Text>
+              </Pressable>
             </View>
           </View>
         }
@@ -77,47 +83,15 @@ function home() {
           <Text style={styles.firstTitle}>Find local professionals</Text>
           <Text style={styles.firstTitle}>in your area</Text>
         </View>
-        <ScrollView horizontal={true}>
-          <View style={styles.horizontalScrollCards}>
-          </View>
-
-          <View style={styles.horizontalScrollCards}>
-          </View>
-
-          <View style={styles.horizontalScrollCards}>
-          </View>
-
-          <View style={styles.horizontalScrollCards}>
-          </View>
-
-          <View style={styles.horizontalScrollCards}>
-          </View>
-
-          <View style={styles.horizontalScrollCards}>
-          </View>
-        </ScrollView>
+        <View>
+          <ListHomeCat />
+        </View>
         <View style={styles.firstTitleContainer}>
           <Text style={styles.firstTitle}>Trending</Text>
         </View>
-        <ScrollView horizontal={true}>
-          <View style={styles.bigHorizontalScrollCards}>
-          </View>
-
-          <View style={styles.bigHorizontalScrollCards}>
-          </View>
-
-          <View style={styles.bigHorizontalScrollCards}>
-          </View>
-
-          <View style={styles.bigHorizontalScrollCards}>
-          </View>
-
-          <View style={styles.bigHorizontalScrollCards}>
-          </View>
-
-          <View style={styles.bigHorizontalScrollCards}>
-          </View>
-        </ScrollView>
+        <View>
+          <BigListHomeCat />
+        </View>
       </View>
     )
   }
@@ -127,6 +101,21 @@ function home() {
 }
 
 const styles = StyleSheet.create({
+  loadingDotsContainer: {
+    paddingTop: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoSvg: {
+    // marginTop: 70,
+    width: 150,
+    height: 150,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   //Android Title Search Input
   titleSearchInput: {
     paddingTop: 7,
@@ -151,22 +140,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     height: 98,
     width: 102,
-    borderRadius: 10,
-    margin: 5,
-    shadowColor: "#000000",
-    shadowOffset: {
-      width: 2,
-      height: 3,
-    },
-    shadowOpacity: 0.17,
-    shadowRadius: 2.54,
-    elevation: 3
-  },
-  //Big horizontal Scroll
-  bigHorizontalScrollCards: {
-    backgroundColor: 'red',
-    height: 205,
-    width: 142,
     borderRadius: 10,
     margin: 5,
     shadowColor: "#000000",

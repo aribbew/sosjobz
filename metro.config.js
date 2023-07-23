@@ -6,6 +6,6 @@ module.exports = getDefaultConfig(__dirname);
 const exclusionList = require('metro-config/src/defaults/exclusionList');
 module.exports = {
   resolver: {
-    blacklistRE: exclusionList([/#current-cloud-backend\/.*/])
-  }
+  blacklistRE: exclusionList([/#current-cloud-backend\/.*/])
+}
 };

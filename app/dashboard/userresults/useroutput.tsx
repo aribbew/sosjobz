@@ -15,19 +15,20 @@ import WorkTypes from '../../components/WorkTypes'
 import { Button } from '@rneui/base';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen'
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Icon } from '@rneui/base';
 import { useRouter } from 'expo-router';
+import { useRoute } from '@react-navigation/native';
 
-function useroutput() {
+function useroutput(props) {
+
+    const geoState = useState()
+
 
     const router = useRouter();
-
-
-    //Font loading start this gets all the return
     const [fontsLoaded] = useFonts({
         'Epilogue-Bold': require('../../resources/fonts/Epilogue-Bold.ttf'),
-        'Epilogue-Black': require('../../resources/fonts/Epilogue-Black.ttf'),
+        'Epilogue-Regular': require('../../resources/fonts/Epilogue-Regular.ttf'),
     });
 
     useEffect(() => {
@@ -52,11 +53,18 @@ function useroutput() {
                     />
                 </View>
                 <MapUser />
-                <View style={styles.buttonContainer}>
-                    <Button children={'Confirm the job'} buttonStyle={{ borderRadius: 14, backgroundColor: '#27348B', height: 44, width: 345, alignItems: 'center', justifyContent: 'center' }} titleStyle={{ fontSize: 12, fontFamily: 'Epilogue-Regular' }} />
-                </View>
+                {/* <View style={styles.buttonContainer}>
+                    <Button children={'Confirm the job'}
+                        buttonStyle={{ borderRadius: 14, backgroundColor: '#27348B', height: 44, width: 345, alignItems: 'center', justifyContent: 'center' }}
+                        titleStyle={{ fontSize: 12, fontFamily: 'Epilogue-Regular' }}
+                        onPress={() => {
+                            console.log()
+                        }}
+                    />
+                </View> */}
             </>
         )
+
     }
 }
 
@@ -75,7 +83,6 @@ const styles = StyleSheet.create({
     },
 
 })
-
 
 
 

@@ -19,11 +19,20 @@
       "function": {
         "SosjobzGoCognitoPostConfirmation": {
           "deploymentBucketName": "amplify-sosjobzgo-dev-05652-deployment",
-          "s3Key": "amplify-builds/SosjobzGoCognitoPostConfirmation-30486a374238772f4963-build.zip"
+          "s3Key": "amplify-builds/SosjobzGoCognitoPostConfirmation-2f4a6234377a31462f75-build.zip"
+        },
+        "sosjobzCategory": {
+          "categorytable": "Category-gofindwflzaftg3gk5q536owxy-dev",
+          "secretsPathAmplifyAppId": "d29j7i6kstxgfy",
+          "deploymentBucketName": "amplify-sosjobzgo-dev-05652-deployment",
+          "s3Key": "amplify-builds/sosjobzCategory-6b4e5032584b31575763-build.zip"
         }
       },
       "api": {
         "SosjobzgoApiLambd": {}
+      },
+      "storage": {
+        "sosjobzImageCenterProd": {}
       }
     }
   }

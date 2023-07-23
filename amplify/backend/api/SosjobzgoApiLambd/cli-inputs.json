@@ -10,8 +10,34 @@
     "additionalAuthTypes": [
       {
         "mode": "AWS_IAM"
+      },
+      {
+        "mode": "API_KEY",
+        "expirationTime": 365,
+        "apiKeyExpirationDate": "2024-07-05T07:45:20.653Z",
+        "keyDescription": "categoryApiKey"
       }
     ],
-    "conflictResolution": {}
+    "conflictResolution": {
+      "defaultResolutionStrategy": {
+        "type": "LAMBDA",
+        "resolver": {
+          "type": "EXISTING",
+          "name": "sosjobzCategory-dev"
+        }
+      },
+      "perModelResolutionStrategy": [
+        {
+          "resolutionStrategy": {
+            "type": "LAMBDA",
+            "resolver": {
+              "type": "EXISTING",
+              "name": "sosjobzCategory-dev"
+            }
+          },
+          "entityName": "Category"
+        }
+      ]
+    }
   }
 }

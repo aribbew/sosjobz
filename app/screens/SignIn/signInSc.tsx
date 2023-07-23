@@ -1,9 +1,6 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, StatusBar } from 'react-native';
-// import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
-// import { initializeApp } from 'firebase/app'
-// import {firebaseConfig} from '../../../firebase-config'
 import {
   View,
   Text,
@@ -133,13 +130,16 @@ function Sign_In() {
                         />
                       )}
                     />
-                    <CheckBox
-                      checked={checked}
-                      onPress={EyePressVisibility}
-                      iconType="material-community"
-                      checkedIcon="eye-outline"
-                      uncheckedIcon={"eye-off-outline"}
-                    />
+                    <View >
+                      <CheckBox
+                        style={styles.checkboxEyeFixer}
+                        checked={checked}
+                        onPress={EyePressVisibility}
+                        iconType="material-community"
+                        checkedIcon="eye-outline"
+                        uncheckedIcon={"eye-off-outline"}
+                      />
+                    </View>
                   </View>
                 </View>
               </View>
@@ -217,7 +217,7 @@ function Sign_In() {
               icon={{
                 name: 'google',
                 type: 'font-awesome',
-                size: 15,
+                size: 11,
                 color: 'black',
               }}
               title={"Continue With Google"}
@@ -265,6 +265,9 @@ function Sign_In() {
 export default Sign_In;
 
 const styles = StyleSheet.create({
+  checkboxEyeFixer: {
+    position: 'relative',
+  },
   InputsContainers: {
     flex: 0,
     justifyContent: 'center',
@@ -294,7 +297,8 @@ const styles = StyleSheet.create({
     borderColor: "#CBD5E1",
     height: 48,
   },
-  eyeContainer: {},
+  eyeContainer: {
+  },
   containerDirectInput: {
     flexDirection: "row",
     alignItems: "flex-end",

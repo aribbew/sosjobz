@@ -1,6 +1,57 @@
-type User @model @auth(rules: [{ allow: owner, ownerField: "id" }]) {
+type User
+  @model
+  @auth(rules: [{ allow: owner }, { allow: private, operations: [read] }]) {
   id: ID!
   name: String!
   username: String!
   email: String!
+
+  orders: [Orders] @connection(keyName: "byUser", fields: ["id"])
+  message: [Message] @connection(keyName: "bySender", fields: ["id"])
+}
+
+type Category
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [read] }
+      { allow: private, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  name: String!
+  image: String
+  orders: [Orders] @connection(keyName: "byCat", fields: ["id"])
+}
+
+type Message
+  @model
+  @auth(rules: [{ allow: private }])
+  @key(name: "bySender", fields: ["senderId"]) {
+  id: ID!
+  owner: String!
+  senderId: ID!
+  user: User @connection(fields: ["senderId"])
+  message: String!
+}
+
+type Orders
+  @model
+  @auth(rules: [{ allow: private }])
+  @key(name: "byUser", fields: ["userId"])
+  @key(name: "byCat", fields: ["catId", "createdAt"]) {
+  id: ID!
+  createdAt: ID!
+
+  category: String!
+
+  geoLoc: String!
+  priceRateDesc: String!
+  DescOfJob: String!
+
+  userId: ID!
+  user: User @connection(fields: ["userId"])
+
+  catId: ID!
+  cat: Category @connection(fields: ["catId"])
 }
