@@ -8,6 +8,7 @@ import { Skeleton } from 'moti/skeleton';
 import MapWithMarker from '../../components/MapWithMarker';
 import { Button, Icon } from '@rneui/themed';
 import { useRouter } from 'expo-router';
+import LoadingStates from '../../components/LoadingStates';
 
 function sos() {
 
@@ -56,8 +57,6 @@ function sos() {
         fetchStoredRegion();
         fetchCat();
     }, []);
-
-
 
     useEffect(() => {
         // Filter the desired category and set it in categoryData state
@@ -180,6 +179,7 @@ function sos() {
                 <View style={styles.priceDescInpuBig}>
                     <ScrollView style={styles.DescFieldBig}><Text style={styles.textBigView}>{descOfJob}</Text></ScrollView>
                 </View>
+                <LoadingStates />
             </View>
         </View>
     )

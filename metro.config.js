@@ -7,5 +7,8 @@ const exclusionList = require('metro-config/src/defaults/exclusionList');
 module.exports = {
   resolver: {
   blacklistRE: exclusionList([/#current-cloud-backend\/.*/])
-}
+},
+transformer: {
+  assetPlugins: ['expo-asset/tools/hashAssetFiles'],
+},
 };

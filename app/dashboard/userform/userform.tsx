@@ -11,6 +11,7 @@ import { listCategorys } from '../../../src/graphql/queries';
 
 function UserForm() {
     const [storageRegion, setStoredRegion] = useState(null);
+    const [responseOrder, setResponseOrder] = useState(null);
     const [loading, setLoading] = useState(false);
     const [listCategory, setListCategory] = useState(null);
     const [cat, setCat] = useState(null);
@@ -70,6 +71,8 @@ function UserForm() {
         }
     };
 
+
+
     useEffect(() => {
         const fetchCat = async () => {
             try {
@@ -92,6 +95,7 @@ function UserForm() {
     }, [listCategory]);
 
     const date = new Date();
+
 
     const onSubmit = async (data) => {
         try {
@@ -121,10 +125,13 @@ function UserForm() {
                 }
                 )
             )
-            console.log(response);
-            Alert.alert("LEsssgoooo", "Your order has been submitted",
-                [{ text: 'Go Home', onPress: () => router.push('../stack/') }]
-            )
+            console.log(response)
+            setResponseOrder(response);
+        } catch (e) {
+            console.log(e)
+        } try {
+            const Order = JSON.stringify(responseOrder)
+            await AsyncStorage.setItem('@My-OrderObject', Order);
         } catch (e) {
             console.log(e)
         }

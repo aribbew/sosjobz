@@ -1,9 +1,5 @@
 {
   "expo": {
-    "permissions": [
-      "ACCESS_COARSE_LOCATION",
-      "ACCESS_FINE_LOCATION"
-    ],
     "scheme": "acme",
     "web": {
       "bundler": "metro"
@@ -14,10 +10,6 @@
       "softwareKeyboardLayoutMode":"pan",
       "package": "com.arbritodev.sosjobzgo"
     },
-
-    "plugins": [
-      "@react-native-google-signin/google-signin"
-    ],
     "extra": {
       "eas": {
         "projectId": "033f0105-4ff1-4c0e-9edd-083012df8645"
@@ -26,6 +18,10 @@
     "ios": {
       "bundleIdentifier": "com.sosdev.sosjobz"
     },
+    "permissions": [
+      "ACCESS_COARSE_LOCATION",
+      "ACCESS_FINE_LOCATION"
+    ],
     "sdkVersion": "48.0.0"
   },
   "ios": {
