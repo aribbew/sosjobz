@@ -1,15 +1,16 @@
-# Expo Router Example
+# Sosjboz Production File
 
-Use [`expo-router`](https://expo.github.io/router) to build native navigation using files in the `app/` directory.
+## Description 🚀
 
-## 🚀 How to use
+Main Library: Expo
 
-```sh
-npx create-react-native-app -t with-router
-```
+Main Language: React
+
+Platforms: Android, Ios, Web
+
+Backend: Aws (Amplify, Appsync, Graphql, S3, Lambda)
 
 ## 📝 Notes
 
-- [Expo Router: Docs](https://expo.github.io/router)
-- [Expo Router: Repo](https://github.com/expo/router)
-- [Request for Comments](https://github.com/expo/router/discussions/1)
+Beta Source Code!
+
