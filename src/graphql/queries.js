@@ -14,12 +14,50 @@ export const getUser = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+      cat {
+        items {
+          id
+          name
+          image
+          isActive
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       message {
         items {
           id
           owner
-          senderId
           message
+          userId
+          conversationId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      messages {
+        items {
+          id
+          owner
+          message
+          userId
+          conversationId
           _version
           _deleted
           _lastChangedAt
@@ -36,6 +74,8 @@ export const getUser = /* GraphQL */ `
           id
           createdAt
           category
+          status
+          payment
           geoLoc
           priceRateDesc
           DescOfJob
@@ -73,7 +113,17 @@ export const listUsers = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
         message {
+          nextToken
+          startedAt
+          __typename
+        }
+        messages {
           nextToken
           startedAt
           __typename
@@ -115,7 +165,17 @@ export const syncUsers = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
         message {
+          nextToken
+          startedAt
+          __typename
+        }
+        messages {
           nextToken
           startedAt
           __typename
@@ -139,17 +199,72 @@ export const getCategory = /* GraphQL */ `
       id
       name
       image
+      isActive
+      userId
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      user {
+        id
+        name
+        username
+        email
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
+        message {
+          nextToken
+          startedAt
+          __typename
+        }
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
+        orders {
+          nextToken
+          startedAt
+          __typename
+        }
+        __typename
+      }
       owner
+      messages {
+        items {
+          id
+          owner
+          message
+          userId
+          conversationId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       orders {
         items {
           id
           createdAt
           category
+          status
+          payment
           geoLoc
           priceRateDesc
           DescOfJob
@@ -180,12 +295,32 @@ export const listCategorys = /* GraphQL */ `
         id
         name
         image
+        isActive
+        userId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        user {
+          id
+          name
+          username
+          email
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+          __typename
+        }
         owner
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
         orders {
           nextToken
           startedAt
@@ -216,12 +351,32 @@ export const syncCategories = /* GraphQL */ `
         id
         name
         image
+        isActive
+        userId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        user {
+          id
+          name
+          username
+          email
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+          __typename
+        }
         owner
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
         orders {
           nextToken
           startedAt
@@ -240,8 +395,9 @@ export const getMessage = /* GraphQL */ `
     getMessage(id: $id) {
       id
       owner
-      senderId
       message
+      userId
+      conversationId
       _version
       _deleted
       _lastChangedAt
@@ -258,12 +414,37 @@ export const getMessage = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
         message {
           nextToken
           startedAt
           __typename
         }
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
         orders {
+          nextToken
+          startedAt
+          __typename
+        }
+        __typename
+      }
+      conversation {
+        id
+        participants
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        messages {
           nextToken
           startedAt
           __typename
@@ -284,8 +465,9 @@ export const listMessages = /* GraphQL */ `
       items {
         id
         owner
-        senderId
         message
+        userId
+        conversationId
         _version
         _deleted
         _lastChangedAt
@@ -302,6 +484,16 @@ export const listMessages = /* GraphQL */ `
           createdAt
           updatedAt
           owner
+          __typename
+        }
+        conversation {
+          id
+          participants
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
           __typename
         }
         __typename
@@ -328,8 +520,9 @@ export const syncMessages = /* GraphQL */ `
       items {
         id
         owner
-        senderId
         message
+        userId
+        conversationId
         _version
         _deleted
         _lastChangedAt
@@ -348,6 +541,110 @@ export const syncMessages = /* GraphQL */ `
           owner
           __typename
         }
+        conversation {
+          id
+          participants
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          __typename
+        }
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
+export const getConversation = /* GraphQL */ `
+  query GetConversation($id: ID!) {
+    getConversation(id: $id) {
+      id
+      participants
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      messages {
+        items {
+          id
+          owner
+          message
+          userId
+          conversationId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      __typename
+    }
+  }
+`;
+export const listConversations = /* GraphQL */ `
+  query ListConversations(
+    $filter: ModelConversationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listConversations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        participants
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
+        __typename
+      }
+      nextToken
+      startedAt
+      __typename
+    }
+  }
+`;
+export const syncConversations = /* GraphQL */ `
+  query SyncConversations(
+    $filter: ModelConversationFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncConversations(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        participants
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
         __typename
       }
       nextToken
@@ -362,6 +659,8 @@ export const getOrders = /* GraphQL */ `
       id
       createdAt
       category
+      status
+      payment
       geoLoc
       priceRateDesc
       DescOfJob
@@ -382,7 +681,17 @@ export const getOrders = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
         message {
+          nextToken
+          startedAt
+          __typename
+        }
+        messages {
           nextToken
           startedAt
           __typename
@@ -398,12 +707,32 @@ export const getOrders = /* GraphQL */ `
         id
         name
         image
+        isActive
+        userId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        user {
+          id
+          name
+          username
+          email
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+          __typename
+        }
         owner
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
         orders {
           nextToken
           startedAt
@@ -426,6 +755,8 @@ export const listOrderss = /* GraphQL */ `
         id
         createdAt
         category
+        status
+        payment
         geoLoc
         priceRateDesc
         DescOfJob
@@ -452,6 +783,8 @@ export const listOrderss = /* GraphQL */ `
           id
           name
           image
+          isActive
+          userId
           _version
           _deleted
           _lastChangedAt
@@ -485,6 +818,8 @@ export const syncOrders = /* GraphQL */ `
         id
         createdAt
         category
+        status
+        payment
         geoLoc
         priceRateDesc
         DescOfJob
@@ -511,6 +846,8 @@ export const syncOrders = /* GraphQL */ `
           id
           name
           image
+          isActive
+          userId
           _version
           _deleted
           _lastChangedAt

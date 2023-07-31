@@ -7,7 +7,9 @@ type User
   email: String!
 
   orders: [Orders] @connection(keyName: "byUser", fields: ["id"])
-  message: [Message] @connection(keyName: "bySender", fields: ["id"])
+  message: [Message] @connection(keyName: "byUser", fields: ["id"])
+  cat: [Category] @connection(keyName: "byUser", fields: ["id"])
+  messages: [Message] @connection(keyName: "byUser", fields: ["id"])
 }
 
 type Category
@@ -17,22 +19,42 @@ type Category
       { allow: owner, operations: [read] }
       { allow: private, operations: [read] }
     ]
-  ) {
+  )
+  @key(name: "byUser", fields: ["userId"]) {
   id: ID!
   name: String!
   image: String
+  isActive: Boolean
+
   orders: [Orders] @connection(keyName: "byCat", fields: ["id"])
+  messages: [Message] @connection(keyName: "byUser", fields: ["id"])
+
+  userId: ID
+  user: User @connection(fields: ["userId"])
 }
 
 type Message
   @model
   @auth(rules: [{ allow: private }])
-  @key(name: "bySender", fields: ["senderId"]) {
+  @key(name: "byUser", fields: ["userId"])
+  @key(name: "byConversation", fields: ["conversationId"]) {
   id: ID!
   owner: String!
-  senderId: ID!
-  user: User @connection(fields: ["senderId"])
   message: String!
+
+  userId: ID!
+  user: User @connection(fields: ["userId"])
+
+  conversationId: ID!
+  conversation: Conversation @connection(fields: ["conversationId"])
+}
+
+type Conversation @model @auth(rules: [{ allow: private }]) {
+  id: ID!
+  # The participants field includes IDs of both User and Category objects
+  participants: [ID!]!
+
+  messages: [Message] @connection(keyName: "byConversation", fields: ["id"])
 }
 
 type Orders
@@ -44,6 +66,8 @@ type Orders
   createdAt: ID!
 
   category: String!
+  status: String
+  payment: Boolean
 
   geoLoc: String!
   priceRateDesc: String!
@@ -54,4 +78,14 @@ type Orders
 
   catId: ID!
   cat: Category @connection(fields: ["catId"])
+}
+
+type Subscription {
+  onOrdersUpdated(id: ID!): Orders @aws_subscribe(mutations: ["updateOrders"])
+  onCategoryUpdated(id: ID!): Category
+    @aws_subscribe(mutations: ["updateCategory"])
+  onMessageCreated(conversationId: ID!): Message
+    @aws_subscribe(mutations: ["createMessage"])
+  onConversationUpdated(id: ID!): Conversation
+    @aws_subscribe(mutations: ["updateConversation"])
 }

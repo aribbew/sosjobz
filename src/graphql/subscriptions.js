@@ -1,25 +1,151 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser {
-    onCreateUser {
+export const onOrdersUpdated = /* GraphQL */ `
+  subscription OnOrdersUpdated($id: ID!) {
+    onOrdersUpdated(id: $id) {
+      id
+      createdAt
+      category
+      status
+      payment
+      geoLoc
+      priceRateDesc
+      DescOfJob
+      userId
+      catId
+      _version
+      _deleted
+      _lastChangedAt
+      updatedAt
+      user {
+        id
+        name
+        username
+        email
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
+        message {
+          nextToken
+          startedAt
+          __typename
+        }
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
+        orders {
+          nextToken
+          startedAt
+          __typename
+        }
+        __typename
+      }
+      cat {
+        id
+        name
+        image
+        isActive
+        userId
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          username
+          email
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+          __typename
+        }
+        owner
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
+        orders {
+          nextToken
+          startedAt
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+  }
+`;
+export const onCategoryUpdated = /* GraphQL */ `
+  subscription OnCategoryUpdated($id: ID!) {
+    onCategoryUpdated(id: $id) {
       id
       name
-      username
-      email
+      image
+      isActive
+      userId
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      user {
+        id
+        name
+        username
+        email
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
+        message {
+          nextToken
+          startedAt
+          __typename
+        }
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
+        orders {
+          nextToken
+          startedAt
+          __typename
+        }
+        __typename
+      }
       owner
-      message {
+      messages {
         items {
           id
           owner
-          senderId
           message
+          userId
+          conversationId
           _version
           _deleted
           _lastChangedAt
@@ -36,6 +162,199 @@ export const onCreateUser = /* GraphQL */ `
           id
           createdAt
           category
+          status
+          payment
+          geoLoc
+          priceRateDesc
+          DescOfJob
+          userId
+          catId
+          _version
+          _deleted
+          _lastChangedAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      __typename
+    }
+  }
+`;
+export const onMessageCreated = /* GraphQL */ `
+  subscription OnMessageCreated($conversationId: ID!) {
+    onMessageCreated(conversationId: $conversationId) {
+      id
+      owner
+      message
+      userId
+      conversationId
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        username
+        email
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
+        message {
+          nextToken
+          startedAt
+          __typename
+        }
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
+        orders {
+          nextToken
+          startedAt
+          __typename
+        }
+        __typename
+      }
+      conversation {
+        id
+        participants
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+  }
+`;
+export const onConversationUpdated = /* GraphQL */ `
+  subscription OnConversationUpdated($id: ID!) {
+    onConversationUpdated(id: $id) {
+      id
+      participants
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      messages {
+        items {
+          id
+          owner
+          message
+          userId
+          conversationId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      __typename
+    }
+  }
+`;
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser {
+    onCreateUser {
+      id
+      name
+      username
+      email
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      owner
+      cat {
+        items {
+          id
+          name
+          image
+          isActive
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      message {
+        items {
+          id
+          owner
+          message
+          userId
+          conversationId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      messages {
+        items {
+          id
+          owner
+          message
+          userId
+          conversationId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      orders {
+        items {
+          id
+          createdAt
+          category
+          status
+          payment
           geoLoc
           priceRateDesc
           DescOfJob
@@ -68,12 +387,50 @@ export const onUpdateUser = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+      cat {
+        items {
+          id
+          name
+          image
+          isActive
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       message {
         items {
           id
           owner
-          senderId
           message
+          userId
+          conversationId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      messages {
+        items {
+          id
+          owner
+          message
+          userId
+          conversationId
           _version
           _deleted
           _lastChangedAt
@@ -90,6 +447,8 @@ export const onUpdateUser = /* GraphQL */ `
           id
           createdAt
           category
+          status
+          payment
           geoLoc
           priceRateDesc
           DescOfJob
@@ -122,12 +481,50 @@ export const onDeleteUser = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+      cat {
+        items {
+          id
+          name
+          image
+          isActive
+          userId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       message {
         items {
           id
           owner
-          senderId
           message
+          userId
+          conversationId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      messages {
+        items {
+          id
+          owner
+          message
+          userId
+          conversationId
           _version
           _deleted
           _lastChangedAt
@@ -144,6 +541,8 @@ export const onDeleteUser = /* GraphQL */ `
           id
           createdAt
           category
+          status
+          payment
           geoLoc
           priceRateDesc
           DescOfJob
@@ -169,17 +568,72 @@ export const onCreateCategory = /* GraphQL */ `
       id
       name
       image
+      isActive
+      userId
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      user {
+        id
+        name
+        username
+        email
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
+        message {
+          nextToken
+          startedAt
+          __typename
+        }
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
+        orders {
+          nextToken
+          startedAt
+          __typename
+        }
+        __typename
+      }
       owner
+      messages {
+        items {
+          id
+          owner
+          message
+          userId
+          conversationId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       orders {
         items {
           id
           createdAt
           category
+          status
+          payment
           geoLoc
           priceRateDesc
           DescOfJob
@@ -205,17 +659,72 @@ export const onUpdateCategory = /* GraphQL */ `
       id
       name
       image
+      isActive
+      userId
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      user {
+        id
+        name
+        username
+        email
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
+        message {
+          nextToken
+          startedAt
+          __typename
+        }
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
+        orders {
+          nextToken
+          startedAt
+          __typename
+        }
+        __typename
+      }
       owner
+      messages {
+        items {
+          id
+          owner
+          message
+          userId
+          conversationId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       orders {
         items {
           id
           createdAt
           category
+          status
+          payment
           geoLoc
           priceRateDesc
           DescOfJob
@@ -241,17 +750,72 @@ export const onDeleteCategory = /* GraphQL */ `
       id
       name
       image
+      isActive
+      userId
       _version
       _deleted
       _lastChangedAt
       createdAt
       updatedAt
+      user {
+        id
+        name
+        username
+        email
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
+        message {
+          nextToken
+          startedAt
+          __typename
+        }
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
+        orders {
+          nextToken
+          startedAt
+          __typename
+        }
+        __typename
+      }
       owner
+      messages {
+        items {
+          id
+          owner
+          message
+          userId
+          conversationId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
       orders {
         items {
           id
           createdAt
           category
+          status
+          payment
           geoLoc
           priceRateDesc
           DescOfJob
@@ -276,8 +840,9 @@ export const onCreateMessage = /* GraphQL */ `
     onCreateMessage {
       id
       owner
-      senderId
       message
+      userId
+      conversationId
       _version
       _deleted
       _lastChangedAt
@@ -294,12 +859,37 @@ export const onCreateMessage = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
         message {
           nextToken
           startedAt
           __typename
         }
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
         orders {
+          nextToken
+          startedAt
+          __typename
+        }
+        __typename
+      }
+      conversation {
+        id
+        participants
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        messages {
           nextToken
           startedAt
           __typename
@@ -315,8 +905,9 @@ export const onUpdateMessage = /* GraphQL */ `
     onUpdateMessage {
       id
       owner
-      senderId
       message
+      userId
+      conversationId
       _version
       _deleted
       _lastChangedAt
@@ -333,12 +924,37 @@ export const onUpdateMessage = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
         message {
           nextToken
           startedAt
           __typename
         }
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
         orders {
+          nextToken
+          startedAt
+          __typename
+        }
+        __typename
+      }
+      conversation {
+        id
+        participants
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        messages {
           nextToken
           startedAt
           __typename
@@ -354,8 +970,9 @@ export const onDeleteMessage = /* GraphQL */ `
     onDeleteMessage {
       id
       owner
-      senderId
       message
+      userId
+      conversationId
       _version
       _deleted
       _lastChangedAt
@@ -372,7 +989,17 @@ export const onDeleteMessage = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
         message {
+          nextToken
+          startedAt
+          __typename
+        }
+        messages {
           nextToken
           startedAt
           __typename
@@ -382,6 +1009,117 @@ export const onDeleteMessage = /* GraphQL */ `
           startedAt
           __typename
         }
+        __typename
+      }
+      conversation {
+        id
+        participants
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+  }
+`;
+export const onCreateConversation = /* GraphQL */ `
+  subscription OnCreateConversation {
+    onCreateConversation {
+      id
+      participants
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      messages {
+        items {
+          id
+          owner
+          message
+          userId
+          conversationId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      __typename
+    }
+  }
+`;
+export const onUpdateConversation = /* GraphQL */ `
+  subscription OnUpdateConversation {
+    onUpdateConversation {
+      id
+      participants
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      messages {
+        items {
+          id
+          owner
+          message
+          userId
+          conversationId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        startedAt
+        __typename
+      }
+      __typename
+    }
+  }
+`;
+export const onDeleteConversation = /* GraphQL */ `
+  subscription OnDeleteConversation {
+    onDeleteConversation {
+      id
+      participants
+      _version
+      _deleted
+      _lastChangedAt
+      createdAt
+      updatedAt
+      messages {
+        items {
+          id
+          owner
+          message
+          userId
+          conversationId
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        startedAt
         __typename
       }
       __typename
@@ -394,6 +1132,8 @@ export const onCreateOrders = /* GraphQL */ `
       id
       createdAt
       category
+      status
+      payment
       geoLoc
       priceRateDesc
       DescOfJob
@@ -414,7 +1154,17 @@ export const onCreateOrders = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
         message {
+          nextToken
+          startedAt
+          __typename
+        }
+        messages {
           nextToken
           startedAt
           __typename
@@ -430,12 +1180,32 @@ export const onCreateOrders = /* GraphQL */ `
         id
         name
         image
+        isActive
+        userId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        user {
+          id
+          name
+          username
+          email
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+          __typename
+        }
         owner
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
         orders {
           nextToken
           startedAt
@@ -453,6 +1223,8 @@ export const onUpdateOrders = /* GraphQL */ `
       id
       createdAt
       category
+      status
+      payment
       geoLoc
       priceRateDesc
       DescOfJob
@@ -473,7 +1245,17 @@ export const onUpdateOrders = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
         message {
+          nextToken
+          startedAt
+          __typename
+        }
+        messages {
           nextToken
           startedAt
           __typename
@@ -489,12 +1271,32 @@ export const onUpdateOrders = /* GraphQL */ `
         id
         name
         image
+        isActive
+        userId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        user {
+          id
+          name
+          username
+          email
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+          __typename
+        }
         owner
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
         orders {
           nextToken
           startedAt
@@ -512,6 +1314,8 @@ export const onDeleteOrders = /* GraphQL */ `
       id
       createdAt
       category
+      status
+      payment
       geoLoc
       priceRateDesc
       DescOfJob
@@ -532,7 +1336,17 @@ export const onDeleteOrders = /* GraphQL */ `
         createdAt
         updatedAt
         owner
+        cat {
+          nextToken
+          startedAt
+          __typename
+        }
         message {
+          nextToken
+          startedAt
+          __typename
+        }
+        messages {
           nextToken
           startedAt
           __typename
@@ -548,12 +1362,32 @@ export const onDeleteOrders = /* GraphQL */ `
         id
         name
         image
+        isActive
+        userId
         _version
         _deleted
         _lastChangedAt
         createdAt
         updatedAt
+        user {
+          id
+          name
+          username
+          email
+          _version
+          _deleted
+          _lastChangedAt
+          createdAt
+          updatedAt
+          owner
+          __typename
+        }
         owner
+        messages {
+          nextToken
+          startedAt
+          __typename
+        }
         orders {
           nextToken
           startedAt

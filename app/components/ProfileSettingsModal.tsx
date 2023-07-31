@@ -4,9 +4,13 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen'
 import React, { useEffect } from 'react';
 import { Button, Icon } from '@rneui/base';
+import { useRouter } from 'expo-router';
 
 
 function ProfileSettingsModal() {
+
+    const router = useRouter()
+
     StatusBar.setBarStyle('dark-content', true);
     //Font loading start this gets all the return
     const [fontsLoaded] = useFonts({
@@ -31,7 +35,7 @@ function ProfileSettingsModal() {
                 <View style={styles.container}>
                     <Text style={styles.textFixer}>Principal</Text>
 
-                    <Button children={'Address'} titleStyle={{ fontFamily: 'Epilogue-Regular', color: 'black', fontSize: 15, }} buttonStyle={{
+                    <Button children={'Change Username'} titleStyle={{ fontFamily: 'Epilogue-Regular', color: 'black', fontSize: 15, }} buttonStyle={{
                         justifyContent: 'space-between', backgroundColor: 'white', borderRadius: 6, height: 40, borderWidth: 1, width: 359, shadowColor: "#000", shadowOffset: {
                             width: 2,
                             height: 4,
@@ -41,7 +45,7 @@ function ProfileSettingsModal() {
                         elevation: 5,
                         zIndex: 2,
                     }} iconRight={true} iconPosition='right' icon={<Icon name='chevron-forward' type='ionicon' />} />
-                    <Button children={'Security'} titleStyle={{ fontFamily: 'Epilogue-Regular', color: 'black', fontSize: 15, }} buttonStyle={{
+                    <Button children={'Change Password'} titleStyle={{ fontFamily: 'Epilogue-Regular', color: 'black', fontSize: 15, }} buttonStyle={{
                         justifyContent: 'space-between', backgroundColor: 'white', borderWidth: 1, borderRadius: 6, height: 40, width: 359, shadowColor: "#000", shadowOffset: {
                             width: 0,
                             height: 45,
@@ -50,8 +54,12 @@ function ProfileSettingsModal() {
 
                         elevation: 5,
                         zIndex: 2,
-                    }} iconRight={true} iconPosition='right' icon={<Icon name='chevron-forward' type='ionicon' />} />
-                    <Button children={'Payment Method'} titleStyle={{ fontFamily: 'Epilogue-Regular', color: 'black', fontSize: 15, }} buttonStyle={{
+                    }} iconRight={true} iconPosition='right' icon={<Icon name='chevron-forward' type='ionicon' />}
+                        onPress={() => {
+                            router.push('./passwordChange')
+                        }}
+                    />
+                    <Button children={'Change Email'} titleStyle={{ fontFamily: 'Epilogue-Regular', color: 'black', fontSize: 15, }} buttonStyle={{
                         justifyContent: 'space-between', backgroundColor: 'white', borderWidth: 1, borderRadius: 6, height: 40, width: 359, shadowColor: "#000", shadowOffset: {
                             width: 0,
                             height: 45,

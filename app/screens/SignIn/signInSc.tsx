@@ -194,66 +194,7 @@ function Sign_In() {
                 marginHorizontal: 50,
               }}
             />
-            <Button
-              icon={{
-                name: 'facebook',
-                type: 'font-awesome',
-                size: 15,
-                color: 'black',
-              }}
-              title={"Continue With Facebook"}
-              buttonStyle={{
-                backgroundColor: "#F8FAFC",
-                borderRadius: 5,
-              }}
-              titleStyle={{ color: "#000", fontSize: 16 }}
-              containerStyle={{
-                width: 343,
-                height: 44,
-                marginHorizontal: 50,
-              }}
-            />
-            <Button
-              icon={{
-                name: 'google',
-                type: 'font-awesome',
-                size: 11,
-                color: 'black',
-              }}
-              title={"Continue With Google"}
-              buttonStyle={{
-                backgroundColor: "#F8FAFC",
-                borderRadius: 5,
-              }}
-              titleStyle={{ color: "#000", fontSize: 16 }}
-              containerStyle={{
-                width: 343,
-                height: 44,
-                marginHorizontal: 50,
-              }}
-            />
             <View>
-              {Platform.OS == "ios" &&
-                <Button
-                  icon={{
-                    name: 'apple',
-                    type: 'font-awesome',
-                    size: 15,
-                    color: 'black',
-                  }}
-                  title={"Continue With Apple"}
-                  buttonStyle={{
-                    backgroundColor: "#F8FAFC",
-                    borderRadius: 5,
-                  }}
-                  titleStyle={{ color: "#000", fontSize: 16 }}
-                  containerStyle={{
-                    width: 343,
-                    height: 44,
-                    marginHorizontal: 50,
-                  }}
-                />
-              }
             </View>
           </View>
         </View>

@@ -1,25 +1,61 @@
-import { View, Text, StyleSheet, Image as RNImage, ScrollView } from 'react-native'
-import PaperPlaneAnimation from '../../components/PaperPlaneAnimations'
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, Image as RNImage, ScrollView } from 'react-native';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listCategorys } from '../../../src/graphql/queries';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Skeleton } from 'moti/skeleton';
 import MapWithMarker from '../../components/MapWithMarker';
 import { Button, Icon } from '@rneui/themed';
 import { useRouter } from 'expo-router';
 import LoadingStates from '../../components/LoadingStates';
+import { onUpdateOrders } from '../../components/subscriptions';
+import { getOrders } from '../../../src/graphql/queries';
 
 function sos() {
-
+    const [order, setOrder] = useState('');
     const [storedRegion, setStoredRegion] = useState(null);
     const [listCategory, setListCategory] = useState(null);
     const [cat, setCat] = useState([]);
+    const [orderData, setOrderData] = useState('');
+    const [orderId, setOrderId] = useState('');
     const router = useRouter();
     const [categoryData, setCategoryData] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [orderIdFetched, setOrderIdFetched] = useState(false);
     const [descOfJob, setDescOfJob] = useState(null);
     const [priceRate, setPriceRate] = useState(null);
+
+    useEffect(() => {
+        // Subscription setup for real-time updates
+        const subscription = API.graphql(
+            graphqlOperation(onUpdateOrders, { id: orderId })
+        ).subscribe({
+            next: ({ value }) => {
+                // Update the order state when a new order update is received
+                setOrder(value.data.onUpdateOrders);
+            },
+            error: error => console.warn(error)
+        });
+
+        // Clean up the subscription when the component unmounts
+        return () => {
+            subscription.unsubscribe();
+        };
+    }, [orderId]);
+
+    useEffect(() => {
+        const fetchStoreOrder = async () => {
+            try {
+                if (orderIdFetched) {
+                    const orderDat = await API.graphql(graphqlOperation(getOrders, { id: orderId }));
+                    setOrderData(JSON.stringify(orderDat));
+                }
+            } catch (error) {
+                console.log('Error fetching stored region data:', error);
+            }
+        };
+
+        fetchStoreOrder();
+    }, [orderIdFetched, orderId]);
 
     useEffect(() => {
         const fetchStoredRegion = async () => {
@@ -32,27 +68,27 @@ function sos() {
                 console.log('Error fetching stored region data:', error);
             }
         };
+
         const loadSelectedContent = async () => {
             try {
                 const value = await AsyncStorage.getItem('@ListCategorySelection');
                 if (value !== null) {
                     setListCategory(value);
-                    // Fetch category data using the stored name from AsyncStorage
                 }
             } catch (error) {
                 console.log('Error retrieving data from AsyncStorage:', error);
             }
         };
+
         const fetchCat = async () => {
             try {
                 const response = await API.graphql(graphqlOperation(listCategorys));
                 setCat(response.data.listCategorys.items);
-                setLoading(false); // Set loading to false after data is fetched
             } catch (e) {
                 console.log(e);
-                setLoading(false); // Set loading to false in case of error
             }
         };
+
         loadSelectedContent();
         fetchStoredRegion();
         fetchCat();
@@ -73,35 +109,12 @@ function sos() {
             const priceRate = await AsyncStorage.getItem('@PriceRateDesc');
             const description = await AsyncStorage.getItem('@DescOfJob');
 
-            // You can process the retrieved data if needed.
-            // For example, you can parse JSON data if it was stored as a JSON string.
-            // const parsedPriceRate = JSON.parse(priceRate);
-            // Return the retrieved data to the calling function.
             return { priceRate, description };
         } catch (error) {
             console.error('Error retrieving data from AsyncStorage:', error);
             return { priceRate: null, description: null };
         }
     };
-    // useEffect(() => {
-    //     const fetchStoredData = async () => {
-    //         try {
-    //             const descOfJobValue = await AsyncStorage.getItem('@DescOfJob');
-    //             const priceRateValue = await AsyncStorage.getItem('@PriceRateDesc');
-    //             console.log('DescOfJob from AsyncStorage:', descOfJobValue);
-    //             console.log('PriceRateDesc from AsyncStorage:', priceRateValue);
-    //             if (descOfJobValue) {
-    //                 setDescOfJob(JSON.parse(descOfJobValue));
-    //             } if (priceRateValue) {
-    //                 setPriceRate(JSON.parse(priceRateValue));
-    //             }
-    //         } catch (error) {
-    //             console.log('Error fetching data from AsyncStorage:', error);
-    //         }
-    //     };
-    //     fetchStoredData();
-    // }, []);
-
 
     useEffect(() => {
         // Call the function to retrieve the data from AsyncStorage.
@@ -109,6 +122,35 @@ function sos() {
             setPriceRate(priceRate);
             setDescOfJob(description);
         });
+    }, []);
+
+    useEffect(() => {
+        const fetchUserOrder = async () => {
+            try {
+                const orderData = await AsyncStorage.getItem('@My-OrderObject');
+                if (orderData) {
+                    setOrder(JSON.parse(orderData));
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        };
+
+        const fetchUserOrderId = async () => {
+            try {
+                const orderDataId = await AsyncStorage.getItem('@My-OrderObject-Id');
+                if (orderDataId) {
+                    setOrderId(JSON.parse(orderDataId));
+                    setOrderIdFetched(true); // Mark orderId as fetched
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        };
+
+        // Call both functions in the same useEffect
+        fetchUserOrderId();
+        fetchUserOrder();
     }, []);
 
     const renderLoadingSkeletons = () => {
@@ -164,10 +206,7 @@ function sos() {
                         justifyContent: 'center',
                     }}
                     titleStyle={{ fontSize: 12, fontFamily: 'Epilogue-Regular' }}
-                // onPress={handleSubmit(async (data) => {
-                //     await onSubmit(data);
-                //     router.push('../sos/sos');
-                // })}
+                    disabled={order?.status !== 'USER_P'}
                 />
             </View>
             <View style={styles.priceDescContainer}>
@@ -179,13 +218,16 @@ function sos() {
                 <View style={styles.priceDescInpuBig}>
                     <ScrollView style={styles.DescFieldBig}><Text style={styles.textBigView}>{descOfJob}</Text></ScrollView>
                 </View>
-                <LoadingStates />
+                <LoadingStates style={styles.loadingStatesStyles}/>
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
+    loadingStatesStyles:{
+        
+    },  
     serviceText: {
         position: 'relative',
         left: '44%',
@@ -252,12 +294,11 @@ const styles = StyleSheet.create({
         width: "100%",
         position: 'relative',
         left: 30,
-
+        gap: 7
     },
     loginText: {
         fontSize: 24,
         paddingHorizontal: 50,
-        // paddingBottom: 15,
         paddingTop: 45,
     },
     iconMap: {
@@ -300,9 +341,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Epilogue-Bold',
         left: 0.5,
         width: 'auto'
-
     },
 });
 
-
-export default sos
+export default sos;

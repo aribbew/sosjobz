@@ -12,6 +12,7 @@ import { listCategorys } from '../../../src/graphql/queries';
 function UserForm() {
     const [storageRegion, setStoredRegion] = useState(null);
     const [responseOrder, setResponseOrder] = useState(null);
+    const [responseOrderId, setResponseOrderId] = useState(null);
     const [loading, setLoading] = useState(false);
     const [listCategory, setListCategory] = useState(null);
     const [cat, setCat] = useState(null);
@@ -94,7 +95,38 @@ function UserForm() {
         }
     }, [listCategory]);
 
+
+    useEffect(() => {
+        const storeResponseOrder = async () => {
+            if (responseOrder) {
+                try {
+                    await AsyncStorage.setItem('@My-OrderObject', JSON.stringify(responseOrder));
+                } catch (error) {
+                    console.error('Error storing responseOrder in AsyncStorage:', error);
+                }
+            }
+        };
+
+        storeResponseOrder();
+    }, [responseOrder]);
+
+    useEffect(() => {
+        const storeResponseOrderId = async () => {
+            if (responseOrder) {
+                try {
+                    await AsyncStorage.setItem('@My-OrderObject-Id', JSON.stringify(responseOrderId));
+                } catch (error) {
+                    console.error('Error storing responseOrder in AsyncStorage:', error);
+                }
+            }
+        };
+
+        storeResponseOrderId();
+    }, [responseOrderId]);
+
     const date = new Date();
+
+    const StatusResponse = "New"
 
 
     const onSubmit = async (data) => {
@@ -116,6 +148,7 @@ function UserForm() {
                 DescOfJob: data.description,
                 userId: userInfo.attributes.sub,
                 catId: catIds[0],
+                status: StatusResponse,
             }
 
             const response = await API.graphql(
@@ -125,13 +158,9 @@ function UserForm() {
                 }
                 )
             )
-            console.log(response)
-            setResponseOrder(response);
-        } catch (e) {
-            console.log(e)
-        } try {
-            const Order = JSON.stringify(responseOrder)
-            await AsyncStorage.setItem('@My-OrderObject', Order);
+            // console.log(response)
+            setResponseOrder(response.data.createOrders);
+            setResponseOrderId(response.data.createOrders.id);
         } catch (e) {
             console.log(e)
         }
@@ -193,10 +222,6 @@ function UserForm() {
                                                             placeholderTextColor="#A1A3A7"
                                                             maxLength={MAX_LETTERS_PDESC}
                                                             multiline
-                                                            textAlignVertical="top"
-                                                            onContentSizeChange={(event) => {
-                                                                onChange(event.nativeEvent.text);
-                                                            }}
                                                         />
                                                         <Text style={styles.letterCounter}>
                                                             {`${value.length}/${MAX_LETTERS_PDESC} characters`}
@@ -233,10 +258,6 @@ function UserForm() {
                                                             placeholderTextColor="#A1A3A7"
                                                             maxLength={MAX_LETTERS_PDESC}
                                                             multiline
-                                                            textAlignVertical="top"
-                                                            onContentSizeChange={(event) => {
-                                                                onChange(event.nativeEvent.text);
-                                                            }}
                                                         />
                                                         <Text style={styles.letterCounter}>
                                                             {`${value.length}/${MAX_LETTERS_PDESC} characters`}
@@ -287,45 +308,45 @@ function UserForm() {
                                         </View>
                                     </View>
                                 }
-                            </View>
-                            {Platform.OS == "ios" &&
-                                <View style={styles.emailInputDOJ}>
-                                    <View style={styles.containerDirectEmailInputDOJ}>
-                                        <Controller
-                                            control={control}
-                                            name='description'
-                                            defaultValue='' // Set default empty string value
-                                            render={({ field: { value, onChange, onBlur } }) => (
-                                                <>
-                                                    <TextInput
-                                                        style={styles.emailInputFieldBig}
-                                                        placeholder="Exp: My bath pipe is broken"
-                                                        autoCapitalize="none"
-                                                        autoCorrect={false}
-                                                        textContentType="username"
-                                                        value={value}
-                                                        enablesReturnKeyAutomatically
-                                                        onChangeText={(text) => {
-                                                            if (text.length <= MAX_LETTERS) {
-                                                                onChange(text);
-                                                            }
-                                                        }}
+                                {Platform.OS == "ios" &&
+                                    <View style={styles.emailInputDOJ}>
+                                        <View style={styles.containerDirectEmailInputDOJ}>
+                                            <Controller
+                                                control={control}
+                                                name='description'
+                                                defaultValue='' // Set default empty string value
+                                                render={({ field: { value, onChange, onBlur } }) => (
+                                                    <>
+                                                        <TextInput
+                                                            style={styles.emailInputFieldBig}
+                                                            placeholder="Exp: My bath pipe is broken"
+                                                            autoCapitalize="none"
+                                                            autoCorrect={false}
+                                                            textContentType="username"
+                                                            value={value}
+                                                            enablesReturnKeyAutomatically
+                                                            onChangeText={(text) => {
+                                                                if (text.length <= MAX_LETTERS) {
+                                                                    onChange(text);
+                                                                }
+                                                            }}
 
-                                                        onBlur={onBlur}
-                                                        placeholderTextColor="#A1A3A7"
-                                                        maxLength={MAX_LETTERS}
-                                                        multiline
-                                                        textAlignVertical="top"
-                                                    />
-                                                    <Text style={styles.letterCounterBig}>
-                                                        {`${value.length}/${MAX_LETTERS} characters`}
-                                                    </Text>
-                                                </>
-                                            )}
-                                        />
+                                                            onBlur={onBlur}
+                                                            placeholderTextColor="#A1A3A7"
+                                                            maxLength={MAX_LETTERS}
+                                                            multiline
+                                                            textAlignVertical="top"
+                                                        />
+                                                        <Text style={styles.letterCounterBig}>
+                                                            {`${value.length}/${MAX_LETTERS} characters`}
+                                                        </Text>
+                                                    </>
+                                                )}
+                                            />
+                                        </View>
                                     </View>
-                                </View>
-                            }
+                                }
+                            </View>
                         </View>
                     </View>
                     <View style={styles.buttonContainer}>
@@ -490,7 +511,6 @@ const styles = StyleSheet.create({
         borderWidth: 1.5,
         borderColor: "transparent",
     },
-
     containerDirectEmailInput: {
         width: 250,
 

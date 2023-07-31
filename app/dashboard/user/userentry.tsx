@@ -16,6 +16,7 @@ import * as SplashScreen from 'expo-splash-screen'
 import { useFonts } from 'expo-font';
 import { Icon } from '@rneui/themed';
 import { useRouter } from "expo-router";
+import React from 'react';
 
 function userentry() {
 
